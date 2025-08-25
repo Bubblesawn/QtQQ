@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QWidget>
 #include <QLabel>
@@ -7,13 +7,13 @@
 
 enum ButtonType
 {
-	MIN_BUTTON = 0,//×îĞ¡»¯¼°¹Ø±Õ°´Å¥
-	MIN_MAX_BUTTON,//×îĞ¡»¯¡¢×î´ó»¯¼°¹Ø±Õ°´Å¥
-	ONLY_CLOSS_BUTTON,//Ö»ÓĞ¹Ø±Õ°´Å¥
+	MIN_BUTTON = 0,//æœ€å°åŒ–åŠå…³é—­æŒ‰é’®
+	MIN_MAX_BUTTON,//æœ€å°åŒ–ã€æœ€å¤§åŒ–åŠå…³é—­æŒ‰é’®
+	ONLY_CLOSS_BUTTON,//åªæœ‰å…³é—­æŒ‰é’®
 
 };
 
-//×Ô¶¨Òå±êÌâÀ¸
+//è‡ªå®šä¹‰æ ‡é¢˜æ 
 
 class TitleBar : public QWidget
 {
@@ -23,59 +23,59 @@ public:
 	TitleBar(QWidget* parent);
 	~TitleBar();
 
-	void setTitleIcon(QString& filePath);         //ÉèÖÃ±êÌâÀ¸Í¼±ê
-	void setTitleContent(QString& title);         //ÉèÖÃ±êÌâÄÚÈİ
-	void setTitleWidth(int width);                //ÉèÖÃ±êÌâÀ¸³¤¶È
-	void setButtonType(ButtonType buttonType);    //ÉèÖÃ±êÌâÀ¸°´Å¥ÀàĞÍ
+	void setTitleIcon(const QString& filePath);         //è®¾ç½®æ ‡é¢˜æ å›¾æ ‡
+	void setTitleContent(const QString& title);         //è®¾ç½®æ ‡é¢˜å†…å®¹
+	void setTitleWidth(int width);                //è®¾ç½®æ ‡é¢˜æ é•¿åº¦
+	void setButtonType(ButtonType buttonType);    //è®¾ç½®æ ‡é¢˜æ æŒ‰é’®ç±»å‹
 
 
-	//±£´æ¡¢»ñÈ¡´°¿Ú×î´ó»¯Ç°´°¿ÚµÄÎ»ÖÃºÍ´óĞ¡
-	void saveResoreInfo(const QPoint &point,const QSize &size);
-	void getResoreInfo(QPoint& point, QSize& size);
+	//ä¿å­˜ã€è·å–çª—å£æœ€å¤§åŒ–å‰çª—å£çš„ä½ç½®å’Œå¤§å°
+	void saveRestoreInfo(const QPoint &point,const QSize &size);
+	void getRestoreInfo(QPoint& point, QSize& size);
 
 private:
-		void paintEvent(QPaintEvent * event);             //»æÍ¼ÊÂ¼ş
-		void mouseDoubleClickEvent(QMouseEvent* event);  //Êó±êË«»÷ÊÂ¼ş
-		void mousePressEvent(QMouseEvent* event);        //Êó±ê°´ÏÂÊÂ¼ş
-		void mouseMoveEvent(QMouseEvent* event);         //Êó±êÒÆ¶¯ÊÂ¼ş
-		void mouseReleaseEvent(QMouseEvent* event);      //Êó±êËÉ¿ªÊÂ¼ş
+		void paintEvent(QPaintEvent * event);             //ç»˜å›¾äº‹ä»¶
+		void mouseDoubleClickEvent(QMouseEvent* event);  //é¼ æ ‡åŒå‡»äº‹ä»¶
+		void mousePressEvent(QMouseEvent* event);        //é¼ æ ‡æŒ‰ä¸‹äº‹ä»¶
+		void mouseMoveEvent(QMouseEvent* event);         //é¼ æ ‡ç§»åŠ¨äº‹ä»¶
+		void mouseReleaseEvent(QMouseEvent* event);      //é¼ æ ‡æ¾å¼€äº‹ä»¶
 
-		void initControl();                              //³õÊ¼»¯¿Ø¼ş
-		void initConnections();                          //³õÊ¼»¯ĞÅºÅºÍ²ÛµÄÁ¬½Ó
-		void loadStyleSheet(const QString &sheetname);   //¼ÓÔØÑùÊ½±í
+		void initControl();                              //åˆå§‹åŒ–æ§ä»¶
+		void initConnections();                          //åˆå§‹åŒ–ä¿¡å·å’Œæ§½çš„è¿æ¥
+		void loadStyleSheet(const QString &sheetname);   //åŠ è½½æ ·å¼è¡¨
 
 signals:
-	//°´Å¥·¢ÉäµÄĞÅºÅ
-	void signalButtonMinClicked();        //×îĞ¡»¯°´Å¥±»µã»÷
-	void signalButtonRestoreClicked();    //×î´ó»¯»¹Ô­°´Å¥±»µã»÷
-	void signalButtonMaxClicked();        //×î´ó»¯°´Å¥±»µã»÷
-	void signalButtonCloseClicked();      //×î´ó»¯¹Ø±Õ°´Å¥±»µã»÷
+	//æŒ‰é’®å‘å°„çš„ä¿¡å·
+	void signalButtonMinClicked();        //æœ€å°åŒ–æŒ‰é’®è¢«ç‚¹å‡»
+	void signalButtonRestoreClicked();    //æœ€å¤§åŒ–è¿˜åŸæŒ‰é’®è¢«ç‚¹å‡»
+	void signalButtonMaxClicked();        //æœ€å¤§åŒ–æŒ‰é’®è¢«ç‚¹å‡»
+	void signalButtonCloseClicked();      //æœ€å¤§åŒ–å…³é—­æŒ‰é’®è¢«ç‚¹å‡»
 
 private slots:
-	//°´Å¥ÏìÓ¦µÄ²Ûº¯Êı
-	void onButtonMinClicked();        //×îĞ¡»¯°´Å¥±»µã»÷
-	void onButtonRestoreCliced();     //×î´ó»¯»¹Ô­°´Å¥±»µã»÷
-	void onButtonMaxClicked();        //×î´ó»¯°´Å¥±»µã»÷
-	void onButtonCloseClicked();      //¹Ø±Õ°´Å¥±»µã»÷
+	//æŒ‰é’®å“åº”çš„æ§½å‡½æ•°
+	void onButtonMinClicked();        //æœ€å°åŒ–æŒ‰é’®è¢«ç‚¹å‡»
+	void onButtonRestoreCliced();     //æœ€å¤§åŒ–è¿˜åŸæŒ‰é’®è¢«ç‚¹å‡»
+	void onButtonMaxClicked();        //æœ€å¤§åŒ–æŒ‰é’®è¢«ç‚¹å‡»
+	void onButtonCloseClicked();      //å…³é—­æŒ‰é’®è¢«ç‚¹å‡»
 	  
 private:
-	QLabel* m_pIcon;               //±êÌâÀ¸Í¼±ê
-    QLabel* m_pTitleContent;              //±êÌâÀ¸ÄÚÈİ
-    QPushButton* m_pButtonMin;     //×îĞ¡»¯°´Å¥
-	QPushButton* m_pButtonMax;     //×î´ó»¯°´Å¥
-	QPushButton* m_pButtonRestore; //×î´ó»¯»¹Ô­°´Å¥
-	QPushButton* m_pButtonClose;   //¹Ø±Õ°´Å¥
+	QLabel* m_pIcon;               //æ ‡é¢˜æ å›¾æ ‡
+    QLabel* m_pTitleContent;              //æ ‡é¢˜æ å†…å®¹
+    QPushButton* m_pButtonMin;     //æœ€å°åŒ–æŒ‰é’®
+	QPushButton* m_pButtonMax;     //æœ€å¤§åŒ–æŒ‰é’®
+	QPushButton* m_pButtonRestore; //æœ€å¤§åŒ–è¿˜åŸæŒ‰é’®
+	QPushButton* m_pButtonClose;   //å…³é—­æŒ‰é’®
 
-	//×î´ó»¯»¹Ô­°´Å¥±äÁ¿£¨ÓÃÓÚ±£´æ´°ÌåµÄÎ»ÖÃ¼°´óĞ¡£©
-	QPoint m_restorePos;          //×î´ó»¯»¹Ô­Ç°µÄ´°ÌåÎ»ÖÃ
-	QSize m_restoreSize;        //×î´ó»¯»¹Ô­Ç°µÄ´°Ìå´óĞ¡
+	//æœ€å¤§åŒ–è¿˜åŸæŒ‰é’®å˜é‡ï¼ˆç”¨äºä¿å­˜çª—ä½“çš„ä½ç½®åŠå¤§å°ï¼‰
+	QPoint m_restorePos;          //æœ€å¤§åŒ–è¿˜åŸå‰çš„çª—ä½“ä½ç½®
+	QSize m_restoreSize;        //æœ€å¤§åŒ–è¿˜åŸå‰çš„çª—ä½“å¤§å°
 
-	//ÒÆ¶¯´°¿ÚµÄ±äÁ¿
-	bool m_isPressed;            //Êó±êÊÇ·ñ°´ÏÂ;
-	QPoint m_startMovePos;       //Êó±ê°´ÏÂÊ±µÄ×ø±ê
+	//ç§»åŠ¨çª—å£çš„å˜é‡
+	bool m_isPressed;            //é¼ æ ‡æ˜¯å¦æŒ‰ä¸‹;
+	QPoint m_startMovePos;       //é¼ æ ‡æŒ‰ä¸‹æ—¶çš„åæ ‡
 
-	QString m_titleContent;      //±êÌâÀ¸µÄÄÚÈİ
-	ButtonType m_buttonType;     //±êÌâÀ¸ÓÒÉÏ½Ç°´Å¥ÀàĞÍ
+	QString m_titleContent;      //æ ‡é¢˜æ çš„å†…å®¹
+	ButtonType m_buttonType;     //æ ‡é¢˜æ å³ä¸Šè§’æŒ‰é’®ç±»å‹
 
 };
 

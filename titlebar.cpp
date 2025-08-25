@@ -1,4 +1,4 @@
-#include "titlebar.h"
+ï»¿#include "titlebar.h"
 #include <QHBoxLayout>
 #include <QPainter>
 #include <QPainterPath>
@@ -39,20 +39,20 @@ void TitleBar::initControl()
 	m_pButtonMax = new QPushButton(this);
     m_pButtonClose = new QPushButton(this);
 
-    //°´Å¥ÉèÖÃ¹Ì¶¨´óĞ¡
+    //æŒ‰é’®è®¾ç½®å›ºå®šå¤§å°
 	m_pButtonMin->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
     m_pButtonRestore->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
 	m_pButtonClose->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
     m_pButtonMax->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
 
-    //ÉèÖÃ¶ÔÏóÃû
+    //è®¾ç½®å¯¹è±¡å
     m_pTitleContent->setObjectName("TitleContent");
 	m_pButtonMin->setObjectName("ButtonMin");
 	m_pButtonRestore->setObjectName("ButtonRestore");
 	m_pButtonMax->setObjectName("ButtonMax");
     m_pButtonClose->setObjectName("ButtonClose");
 
-    //ÉèÖÃ²¼¾Ö
+    //è®¾ç½®å¸ƒå±€
 	QHBoxLayout* mylayout = new QHBoxLayout(this);
     mylayout->addWidget(m_pIcon);
 	mylayout->addWidget(m_pTitleContent);
@@ -61,16 +61,16 @@ void TitleBar::initControl()
     mylayout->addWidget(m_pButtonMax);
     mylayout->addWidget(m_pButtonClose);
     
-	mylayout->setContentsMargins(5, 0, 0, 0);  //ÉèÖÃ²¼¾Ö±ß¾à
-    mylayout->setSpacing(0);                   //ÉèÖÃ²¿¼ş¼äµÄ¼äÏ¶
+	mylayout->setContentsMargins(5, 0, 0, 0);  //è®¾ç½®å¸ƒå±€è¾¹è·
+    mylayout->setSpacing(0);                   //è®¾ç½®éƒ¨ä»¶é—´çš„é—´éš™
     
     m_pTitleContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	setFixedHeight(TITLE_HEIGHT);              //ÉèÖÃ±êÌâÀ¸¸ß¶È
-	setWindowFlags(Qt::FramelessWindowHint);   //ÉèÖÃÎŞ±ß¿ò´°¿Ú
+	setFixedHeight(TITLE_HEIGHT);              //è®¾ç½®æ ‡é¢˜æ é«˜åº¦
+	setWindowFlags(Qt::FramelessWindowHint);   //è®¾ç½®æ— è¾¹æ¡†çª—å£
 
 }
 
-//ĞÅºÅ²ÛµÄÁ¬½Ó
+//ä¿¡å·æ§½çš„è¿æ¥
 void TitleBar::initConnections()
 {
     connect(m_pButtonMin, SIGNAL(clicked), this, SLOT(onButtonMinClicked));
@@ -79,25 +79,25 @@ void TitleBar::initConnections()
     connect(m_pButtonClose, SIGNAL(clicked), this, SLOT(onButtonCloseClicked));
 }
 
-//ÉèÖÃ±êÌâÀ¸Í¼±ê
-void TitleBar::setTitleIcon(QString& filepath) {
+//è®¾ç½®æ ‡é¢˜æ å›¾æ ‡
+void TitleBar::setTitleIcon(const QString& filepath) {
     QPixmap titleIcon(filepath);
     m_pIcon->setFixedSize(titleIcon.size());
     m_pIcon->setPixmap(titleIcon);
 }
 
-//ÉèÖÃ±êÌâÀ¸ÄÚÈİ
-void TitleBar::setTitleContent(QString& titlecontent){
+//è®¾ç½®æ ‡é¢˜æ å†…å®¹
+void TitleBar::setTitleContent(const QString& titlecontent){
 	m_pTitleContent->setText(titlecontent);
-	m_titleContent = titlecontent;//±£´æ±êÌâÄÚÈİ
+	m_titleContent = titlecontent;//ä¿å­˜æ ‡é¢˜å†…å®¹
 }
 
-//ÉèÖÃ±êÌâÀ¸³¤¶È
+//è®¾ç½®æ ‡é¢˜æ é•¿åº¦
 void TitleBar::setTitleWidth(int width) {
     m_pTitleContent->setFixedWidth(width);
 }
 
-//ÉèÖÃ°´Å¥ÀàĞÍ
+//è®¾ç½®æŒ‰é’®ç±»å‹
 void TitleBar::setButtonType(ButtonType buttontype){
 	m_buttonType = buttontype;
     switch (m_buttonType) {
@@ -119,38 +119,38 @@ void TitleBar::setButtonType(ButtonType buttontype){
 
 }
 
-//±£´æµ±Ç°´°¿ÚµÄÎ»ÖÃĞÅÏ¢ºÍ´óĞ¡
-void TitleBar::saveResoreInfo(const QPoint &point, const QSize &size) {
+//ä¿å­˜å½“å‰çª—å£çš„ä½ç½®ä¿¡æ¯å’Œå¤§å°
+void TitleBar::saveRestoreInfo(const QPoint &point, const QSize &size) {
     m_restorePos = point;
     m_restoreSize = size;
 }
 
-//»ñÈ¡µ±Ç°´°¿ÚµÄÎ»ÖÃĞÅÏ¢ºÍ´óĞ¡
-void TitleBar::getResoreInfo(QPoint& point, QSize& size) {
+//è·å–å½“å‰çª—å£çš„ä½ç½®ä¿¡æ¯å’Œå¤§å°
+void TitleBar::getRestoreInfo(QPoint& point, QSize& size) {
     point = m_restorePos;
     size = m_restoreSize;
 }
 
-//»æÖÆ±êÌâÀ¸
+//ç»˜åˆ¶æ ‡é¢˜æ 
 void TitleBar::paintEvent(QPaintEvent* event) {
-    //ÉèÖÃ±³¾°É«
+    //è®¾ç½®èƒŒæ™¯è‰²
     QPainter painter(this);
     QPainterPath pathBack;
-    pathBack.setFillRule(Qt::WindingFill); //ÉèÖÃÌî³ä¹æÔò
-    pathBack.addRoundedRect(QRect(0,0,width(),height()),3,3);//Ìí¼ÓÔ²½Ç¾ØĞÎµ½»æÍ¼Â·¾¶
+    pathBack.setFillRule(Qt::WindingFill); //è®¾ç½®å¡«å……è§„åˆ™
+    pathBack.addRoundedRect(QRect(0,0,width(),height()),3,3);//æ·»åŠ åœ†è§’çŸ©å½¢åˆ°ç»˜å›¾è·¯å¾„
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 
-    //µ±´°¿Ú×î´ó»¯»òÕß»¹Ô­ºó£¬´°¿Ú³¤¶È¸Ä±ä£¬±êÌâÀ¸ÏàÓ¦×ö³ö¸Ä±ä
-    // parentWidget() ·µ»Ø¸¸²¿¼ş
+    //å½“çª—å£æœ€å¤§åŒ–æˆ–è€…è¿˜åŸåï¼Œçª—å£é•¿åº¦æ”¹å˜ï¼Œæ ‡é¢˜æ ç›¸åº”åšå‡ºæ”¹å˜
+    // parentWidget() è¿”å›çˆ¶éƒ¨ä»¶
     if (width() != parentWidget()->width()) {
         setFixedWidth(parentWidget()->width());
     }
    
 }
 
-  //Ë«»÷ÏìÓ¦ÊÂ¼ş£¬Ö÷ÒªÊµÏÖË«»÷±êÌâÀ¸½øĞĞ×î´ó»¯×îĞ¡»¯µÄ²Ù×÷
+  //åŒå‡»å“åº”äº‹ä»¶ï¼Œä¸»è¦å®ç°åŒå‡»æ ‡é¢˜æ è¿›è¡Œæœ€å¤§åŒ–æœ€å°åŒ–çš„æ“ä½œ
 void TitleBar::mouseDoubleClickEvent(QMouseEvent* event) {
-    //Ö»ÓĞ´æÔÚ×îĞ¡»¯¡¢×î´ó»¯²ÅÓĞĞ§
+    //åªæœ‰å­˜åœ¨æœ€å°åŒ–ã€æœ€å¤§åŒ–æ‰æœ‰æ•ˆ
     if (m_buttonType == MIN_MAX_BUTTON) {
         if (m_pButtonMax->isVisible()) {
             onButtonMaxClicked();
@@ -161,15 +161,15 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent* event) {
     }
     return QWidget::mouseDoubleClickEvent(event);
 }
-//Í¨¹ıÊó±ê°´ÏÂ¡¢Êó±êÊÍ·Å¡¢Êó±êÒÆ¶¯ÊÂ¼şÊµÏÖ±êÌâÀ¸´ïµ½ÒÆ¶¯´°¿ÚĞ§¹û
+//é€šè¿‡é¼ æ ‡æŒ‰ä¸‹ã€é¼ æ ‡é‡Šæ”¾ã€é¼ æ ‡ç§»åŠ¨äº‹ä»¶å®ç°æ ‡é¢˜æ è¾¾åˆ°ç§»åŠ¨çª—å£æ•ˆæœ
 
 void TitleBar::mousePressEvent(QMouseEvent* event) {
     QPointF posF = event->globalPosition();
     if (m_buttonType == MIN_MAX_BUTTON) {
-        //ÔÚ´°¿Ú×î´ó»¯Ê±½ûÖ¹ÍÏ¶¯
+        //åœ¨çª—å£æœ€å¤§åŒ–æ—¶ç¦æ­¢æ‹–åŠ¨
         if (m_pButtonMax->isVisible()) {
             m_isPressed = true;
-            m_startMovePos = posF.toPoint();  // Èç¹ûÄãÖ»ĞèÒªÕûÊı
+            m_startMovePos = posF.toPoint();  // å¦‚æœä½ åªéœ€è¦æ•´æ•°
         }
     }
     else {
@@ -198,7 +198,7 @@ void TitleBar::mouseReleaseEvent(QMouseEvent* event)
 
 }
 
-//¼ÓÔØÑùÊ½±í
+//åŠ è½½æ ·å¼è¡¨
 
 void TitleBar::loadStyleSheet(const QString& sheetName) {
 
@@ -233,3 +233,4 @@ void TitleBar::onButtonMaxClicked() {
 void TitleBar::onButtonCloseClicked() {
     emit signalButtonCloseClicked();
 }
+
