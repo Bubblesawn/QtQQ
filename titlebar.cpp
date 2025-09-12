@@ -33,7 +33,7 @@ TitleBar::~TitleBar()
 void TitleBar::initControl()
 {
     m_pIcon = new QLabel(this);
-
+    m_pTitleContent = new QLabel(this);
     m_pButtonMin = new QPushButton(this);
 	m_pButtonRestore = new QPushButton(this);
 	m_pButtonMax = new QPushButton(this);
@@ -202,12 +202,13 @@ void TitleBar::mouseReleaseEvent(QMouseEvent* event)
 
 void TitleBar::loadStyleSheet(const QString& sheetName) {
 
-    QFile file(":/Resources/QSS " + sheetName + ".css");
+    QFile file(":/Resources/QSS/" + sheetName + ".css");
+	file.open(QFile::ReadOnly);
     if (file.isOpen()) {
         QString styleSheet = this->styleSheet();
         styleSheet += QLatin1String(file.readAll());
 		setStyleSheet(styleSheet);
-
+        file.close();
      }
 
 }

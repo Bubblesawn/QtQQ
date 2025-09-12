@@ -1,57 +1,53 @@
-#pragma once
+ï»¿#pragma once
 #include <QDialog>
 #include "titlebar.h"
 
-
-class BasicWindow  : public QDialog
+// ç¡®ä¿æ³¨é‡Šå’Œå­—ç¬¦ä¸²ä¸­æ²¡æœ‰é UTF-8 å­—ç¬¦
+class BasicWindow : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	BasicWindow(QWidget *parent  = nullptr);
-	virtual ~BasicWindow();
+    BasicWindow(QWidget *parent = nullptr);
+    virtual ~BasicWindow();
 
-public:
-	//¼ÓÔØÑİÊ¾±í
-	void loadStyleSheet(const QString &sheetname);
+    // åŠ è½½æ¼”ç¤ºè¡¨
+    void loadStyleSheet(const QString &sheetname);
 
-	//»ñÈ¡Ô²Í·Ïñ
-	QPixmap getRoundImage (const QPixmap& src, QPixmap& mask,QSize masksize = QSize(0,0));
+    // è·å–åœ†å¤´åƒ
+    QPixmap getRoundImage(const QPixmap &src, QPixmap &mask, QSize masksize = QSize(0, 0));
 
 private:
-	void initBackGroundColor(); //³õÊ¼»¯±³¾°
+    void initBackGroundColor(); // åˆå§‹åŒ–èƒŒæ™¯
 
 protected:
-	void paintEvent(QPaintEvent*);                //»æÖÆÊÂ¼ş
-	void mouseEvent(QMouseEvent* event);         //Êó±êÊÂ¼ş
-	void mouseMoveEvent(QMouseEvent* event);      // Êó±êÒÆ¶¯ÊÂ¼ş
-	void mouseRleaseEvent(QMouseEvent* event);    //Êó±êËÉ¿ªÊÂ¼ş
-
+    void paintEvent(QPaintEvent *);               // ç»˜åˆ¶äº‹ä»¶
+    void mouseEvent(QMouseEvent *event);          // é¼ æ ‡äº‹ä»¶
+    void mouseMoveEvent(QMouseEvent *event);      // é¼ æ ‡ç§»åŠ¨äº‹ä»¶
+    void mouseRleaseEvent(QMouseEvent *event);    // é¼ æ ‡æ¾å¼€äº‹ä»¶
 
 protected:
-	void initTitleBar(ButtonType  buttontype = MIN_BUTTON);
-	void setTitleBarTitle(const QString& title, const QString& icon = "");
+    void initTitleBar(ButtonType buttontype = MIN_BUTTON);
+    void setTitleBarTitle(const QString &title, const QString &icon = "");
 
 public slots:
-	void onShowClose(bool);
-	void onSHowMin(bool);
-	void onShowHide(bool);
-	void onShowNormal(bool);
-	void onShowQuit(bool);
-	void onSignalSKinChanged(const QColor& color);
+    void onShowClose(bool);
+    void onSHowMin(bool);
+    void onShowHide(bool);
+    void onShowNormal(bool);
+    void onShowQuit(bool);
+    void onSignalSkinChanged(const QColor &color);
 
-	void onButtonMinClicked();
-	void onButtonRestoreCliced();
-	void onButtonMaxClicked();
-	void onButtonCloseClicked(); 
+    void onButtonMinClicked();
+    void onButtonRestoreCliced();
+    void onButtonMaxClicked();
+    void onButtonCloseClicked();
 
 protected:
-	QPoint m_mouseePoint; //Êó±êÎ»ÖÃ
-	bool m_mousePressed ; //Êó±êÊÇ·ñ°´ÏÂ
-	QColor m_colorBackGround; //±³¾°ÑÕÉ«
-	QString m_styleName; //ÑùÊ½±íÃû³Æ
-	TitleBar* _titleBar;//±êÌâÀ¸
-
-
+    QPoint m_mouseePoint;       // é¼ æ ‡ä½ç½®
+    bool m_mousePressed;        // é¼ æ ‡æ˜¯å¦æŒ‰ä¸‹
+    QColor m_colorBackGround;   // èƒŒæ™¯é¢œè‰²
+    QString m_styleName;        // æ ·å¼è¡¨åç§°
+    TitleBar *_titleBar;        // æ ‡é¢˜æ 
 };
 

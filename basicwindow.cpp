@@ -6,18 +6,24 @@
 #include <QApplication>
 #include <titleBar.h>
 
+#include "CommonUtils.h"
+#include "NotifyManager.h"
+
+
 BasicWindow::BasicWindow(QWidget *parent)
 	: QDialog(parent)
 {
+	m_colorBackGround = CommonUtils::getDefaultSkinColor();
 	setWindowFlags(Qt::FramelessWindowHint);
 	setAttribute(Qt::WA_TranslucentBackground, true); //设置窗口透明
+	connect(NotifyManager::getInstance(),SIGNAL(signalSkinChanged(const QColor& )),this,SLOT(onSignalSkinChanged(const QColor&)));
 }
 
 BasicWindow::~BasicWindow()
 {
 }
 
-void BasicWindow::onSignalSKinChanged(const QColor& color)
+void BasicWindow::onSignalSkinChanged(const QColor& color)
 {
 	m_colorBackGround = color;
 	loadStyleSheet(m_styleName); //更新窗口以应用新的背景颜色
@@ -33,16 +39,16 @@ void BasicWindow::initTitleBar(ButtonType buttontype) {
 	_titleBar ->setButtonType(buttontype);
 	_titleBar ->move(0, 0);
 
-	connect(_titleBar, SIGNAL(signalHButtonMinCliked()), this, SLOT(onButtonMinClicked()));
+	connect(_titleBar, SIGNAL(signalButtonMinCliked()), this, SLOT(onButtonMinClicked()));
 	connect(_titleBar,SIGNAL(signalButtonRestoreClicked()),this,SLOT(onButtonRestoreCliced));
-	connect(_titleBar,SIGNAL(signalButtonMaxClicked()),this,SLOT(onButtonMaxClicked));
+	connect(_titleBar,SIGNAL(signalButtonMaxClicked()),this,SLOT(onButtonMaxClicked()));
 	connect(_titleBar, SIGNAL(signalButtonCloseClicked()), this, SLOT(onButtonCloseClicked()));
 
 }
 
-void BasicWindow::loadStyleSheet(const QString& sheetname) {
-	m_styleName = sheetname;
-	QFile file("../Resouces/QSS/" + sheetname + ".css");
+void BasicWindow::loadStyleSheet(const QString& sheetName) {
+	m_styleName = sheetName;
+	QFile file(":/Resources/QSS/" + sheetName + ".css");
 	file.open(QFile::ReadOnly);
 
 	if (file.isOpen()) {
@@ -56,15 +62,17 @@ void BasicWindow::loadStyleSheet(const QString& sheetname) {
 		QString b = QString::number(m_colorBackGround.blue());
 
 		qsstyleSheet += QString("QWidget[titleskin=true]\
-                                {background-color:rgb(%1,%2,%3);\
-                                 border-top-left-radius;4px;}\
-	                             QWidget[bottomskin=true]\
-                                {border-top:1px solid rgba(%1,%2,%3,100);back});\
-	                             background-color:rgba(%1,%2,%3,50);\
-                                 border-bottom-left-radius:4px;\
-                                 border-bottom-right-radius:4px;}")
+								{background-color:rgb(%1,%2,%3);\
+								border-top-left-radius:4px;}\
+								QWidget[bottomskin=true]\
+								{border-top:1px solid rgba(%1,%2,%3,100);\
+								background-color:rgba(%1,%2,%3,50);\
+								border-bottom-left-radius:4px;\
+								border-bottom-right-radius:4px;}")
 			.arg(r).arg(g).arg(b);
 		setStyleSheet(qsstyleSheet);
+
+
 	}
 	file.close();	
 }	
@@ -88,7 +96,7 @@ QPixmap BasicWindow::getRoundImage(const QPixmap& src, QPixmap& mask, QSize mask
 		maskSize = mask.size();
 	}
 	else {
-		mask.scaled(maskSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		mask = mask.scaled(maskSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
 
 	QImage resultImage(maskSize, QImage::Format_ARGB32_Premultiplied);
